@@ -40,7 +40,7 @@ export default function TaskItem({ task }: TaskItemProps) {
 
   return (
     <div
-      className="bg-mainBg m-2 p-5 rounded-lg flex items-center justify-between"
+      className="bg-mainBg m-2 p-5 rounded-lg flex items-center justify-between cursor-grab"
       ref={setNodeRef}
       style={style}
       {...attributes}
@@ -49,7 +49,7 @@ export default function TaskItem({ task }: TaskItemProps) {
       onMouseLeave={() => setIsMouseActive(false)}
     >
       {!isEditMode && (
-        <p onClick={() => setIsEditMode(true)} className="text-left">
+        <p onClick={() => setIsEditMode(true)} className="text-left cursor-pointer">
           {content}
         </p>
       )}

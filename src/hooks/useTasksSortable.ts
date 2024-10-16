@@ -1,11 +1,12 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { Task } from "../types/types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
-
+import { useOtherStuff } from "../store/otherStuffs";
 export default function useTasksSortable(task: Task) {
-  const [isEditMode, setIsEditMode] = useState(false);
+  const [isEditMode, setIsEditMode,] = useState(false);
   const [content, setContent] = useState(task.content);
+const {setDragactive} = useOtherStuff()
 
   const {
     setNodeRef,
@@ -28,6 +29,11 @@ export default function useTasksSortable(task: Task) {
     transform: CSS.Transform.toString(transform),
   };
 
+  useEffect(()=>{
+    setDragactive(isDragging)
+  },[isDragging, setDragactive])
+
+  
   return {
     setNodeRef,
     attributes,

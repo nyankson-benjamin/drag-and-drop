@@ -2,10 +2,7 @@ import Button from "./Button";
 import PlusIcon from "../assets/PlusIcon";
 import ColumnsContainer from "./ColumnContainer";
 import { useStore } from "../store/store";
-import {
-  DndContext,
-  DragOverlay,
-} from "@dnd-kit/core";
+import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import ColumnsComponent from "./ColumnComponent";
@@ -14,7 +11,16 @@ import TaskItem from "./TaskItem";
 
 export default function KanbanBoard() {
   const { columns } = useStore();
-  const { createColumn, onDragStart, activeColumn, columnsId, onDragEnd, sensors, activeTask,onDragOver } = useColumnsDND();
+  const {
+    createColumn,
+    onDragStart,
+    activeColumn,
+    columnsId,
+    onDragEnd,
+    sensors,
+    activeTask,
+    onDragOver,
+  } = useColumnsDND();
   return (
     <div
       className="
@@ -33,6 +39,12 @@ export default function KanbanBoard() {
      m-auto
      "
       >
+        <div className="w-[350px] my-2">
+          <Button text="Add column" onSubmit={createColumn}>
+            <PlusIcon />
+          </Button>
+        </div>
+        
         <DndContext
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
@@ -42,16 +54,11 @@ export default function KanbanBoard() {
           <SortableContext items={columnsId}>
             <ColumnsContainer columns={columns} />
           </SortableContext>
-          <div className="w-[350px]">
-            <Button text="Add column" onSubmit={createColumn}>
-              <PlusIcon />
-            </Button>
-          </div>
+
           {createPortal(
             <DragOverlay>
               {activeColumn && <ColumnsComponent column={activeColumn} />}
               {activeTask && <TaskItem task={activeTask} />}
-
             </DragOverlay>,
             document.body
           )}

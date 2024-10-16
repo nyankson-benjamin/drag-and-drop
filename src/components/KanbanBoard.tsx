@@ -10,11 +10,11 @@ import { SortableContext } from "@dnd-kit/sortable";
 import { createPortal } from "react-dom";
 import ColumnsComponent from "./ColumnComponent";
 import useColumnsDND from "../hooks/useColumnsDND";
+import TaskItem from "./TaskItem";
 
 export default function KanbanBoard() {
   const { columns } = useStore();
-  const { createColumn, onDragStart, activeColumn, columnsId, onDragEnd, sensors } = useColumnsDND();
-
+  const { createColumn, onDragStart, activeColumn, columnsId, onDragEnd, sensors, activeTask,onDragOver } = useColumnsDND();
   return (
     <div
       className="
@@ -36,6 +36,7 @@ export default function KanbanBoard() {
         <DndContext
           onDragStart={onDragStart}
           onDragEnd={onDragEnd}
+          onDragOver={onDragOver}
           sensors={sensors}
         >
           <SortableContext items={columnsId}>
@@ -49,6 +50,8 @@ export default function KanbanBoard() {
           {createPortal(
             <DragOverlay>
               {activeColumn && <ColumnsComponent column={activeColumn} />}
+              {activeTask && <TaskItem task={activeTask} />}
+
             </DragOverlay>,
             document.body
           )}

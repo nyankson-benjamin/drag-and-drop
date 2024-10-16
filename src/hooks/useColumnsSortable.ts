@@ -9,7 +9,7 @@ export default function useColumnsSortable(column: columns) {
   const [editMode, setEditMode] = useState(false);
   const { updateColumnTitle, tasks, addTask } = useStore();
   const [title, setTitle] = useState(column.title);
-
+const [content, setContent] = useState("")
   const {
     setNodeRef,
     attributes,
@@ -39,7 +39,7 @@ export default function useColumnsSortable(column: columns) {
 
   const currentTasks = tasks.filter(task=>task.columnId === column.id)
 const addToTasks=()=>{
-addTask({columnId:column.id, id:generateId(), content:`Task ${currentTasks.length+1}`})
+addTask({columnId:column.id, id:generateId(), content:content})
 }
   return {
     setNodeRef,
@@ -54,6 +54,8 @@ addTask({columnId:column.id, id:generateId(), content:`Task ${currentTasks.lengt
     setTitle,
     currentTasks,
     addToTasks,
-    editMode
+    editMode,
+    content, 
+    setContent
   };
 }

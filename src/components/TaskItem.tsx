@@ -8,20 +8,15 @@ import TextArea from "./TextArea";
 export default function TaskItem({ task }: TaskItemProps) {
   const { removeTask, updateTask } = useStore();
   const [isMouseActive, setIsMouseActive] = useState(false);
-  const [isEditMode, setIsEditMode] = useState(false);
-  const [content, setContent] = useState(task.content);
   const {
     setNodeRef,
     attributes,
     listeners,
-    // setEditMode,
     isDragging,
     style,
-    // title,
-    // setTitle,
-    // currentTasks,
-    // addToTasks,
-    // editMode
+    isEditMode,
+    setIsEditMode,
+    content, setContent
   } = useTasksSortable(task);
 
   useEffect(() => {
@@ -32,12 +27,14 @@ export default function TaskItem({ task }: TaskItemProps) {
   if (isDragging) {
     return (
       <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
+        ref={setNodeRef}
+        style={style}
+        {...attributes}
+        {...listeners}
         className="bg-mainBg m-2 p-5 rounded-lg flex items-center justify-between border  border-rose-500"
-      ></div>
+      >
+        Dragging...
+      </div>
     );
   }
 
@@ -51,26 +48,25 @@ export default function TaskItem({ task }: TaskItemProps) {
       onMouseOver={() => setIsMouseActive(true)}
       onMouseLeave={() => setIsMouseActive(false)}
     >
-      {!isEditMode && <p onClick={() => setIsEditMode(true)}
-        className="text-left"
-        >{content}
-        {task.id}
-        </p>}
+      {!isEditMode && (
+        <p onClick={() => setIsEditMode(true)} className="text-left">
+          {content}
+        </p>
+      )}
       {isEditMode && (
         <div className="w-full">
-
-        <TextArea
-          value={content}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
-            setContent(e.target.value)
-        }
-        onBlur={() => setIsEditMode(false)}
-        onKeyDown={(e) => {
-            if (e.key === "Enter" && e.shiftKey) {
-                setIsEditMode(false);
+          <TextArea
+            value={content}
+            onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) =>
+              setContent(e.target.value)
             }
-        }}
-        />
+            onBlur={() => setIsEditMode(false)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && e.shiftKey) {
+                setIsEditMode(false);
+              }
+            }}
+          />
         </div>
       )}
       {isMouseActive && !isEditMode && (

@@ -23,13 +23,15 @@ export type InputProps={
     value:Id,
     onBlur?:()=>void,
     onChange:(e: React.ChangeEvent<HTMLInputElement>)=>void
-    onKeyDown?:(e:React.KeyboardEvent<HTMLInputElement>)=>void
+    onKeyDown?:(e:React.KeyboardEvent<HTMLInputElement>)=>void,
+    placeholder:string
 }
 export type TextAreaProps={
     value:Id,
     onBlur?:()=>void,
     onChange:(e: React.ChangeEvent<HTMLTextAreaElement>)=>void
     onKeyDown?:(e:React.KeyboardEvent<HTMLTextAreaElement>)=>void
+    placeholder?:string
 }
 
 export type Task={

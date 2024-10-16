@@ -4,8 +4,8 @@ import { useState } from "react";
 import { CSS } from "@dnd-kit/utilities";
 
 export default function useTasksSortable(task: Task) {
-  const [editMode, setEditMode] = useState(false);
-  const [title, setTitle] = useState(task.content);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [content, setContent] = useState(task.content);
 
   const {
     setNodeRef,
@@ -20,7 +20,7 @@ export default function useTasksSortable(task: Task) {
       type: "Task",
       task,
     },
-    disabled: editMode,
+    disabled: isEditMode,
   });
 
   const style = {
@@ -28,20 +28,15 @@ export default function useTasksSortable(task: Task) {
     transform: CSS.Transform.toString(transform),
   };
 
-  
   return {
     setNodeRef,
     attributes,
     listeners,
-    transform,
-    transition,
-    setEditMode,
     isDragging,
     style,
-    title,
-    setTitle,
-    // currentTasks,
-    // addToTasks,
-    editMode,
+    isEditMode,
+    setIsEditMode,
+    content,
+    setContent,
   };
 }

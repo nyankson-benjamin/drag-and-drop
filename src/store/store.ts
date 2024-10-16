@@ -29,6 +29,7 @@ export const useStore = create<ColumnsStore>()(
       removeColumn: (id) =>
         set((state) => ({
           columns: state.columns.filter((column) => column.id !== id),
+          tasks:state.tasks.filter(task=>task.columnId !==id)
         })),
 
       updateColumnTitle: (id: Id, title: string) => {

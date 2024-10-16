@@ -88,7 +88,7 @@ export default function ColumnsComponent({ column }: Readonly<columnProp>) {
               }}
             />
           )}
-         <p className="uppercase"> {!editMode && title}</p>
+          <p className="uppercase"> {!editMode && title}</p>
         </div>
         {isMouseActive && (
           <DeleteIcon handleDelete={() => removeColumn(column.id)} />
@@ -105,7 +105,7 @@ export default function ColumnsComponent({ column }: Readonly<columnProp>) {
 
       <footer className="w-full">
         {addMode && (
-          <div className="">
+          <div className="mx-2">
             <TextArea
               placeholder="What needs to be done?"
               value={content}
@@ -114,18 +114,17 @@ export default function ColumnsComponent({ column }: Readonly<columnProp>) {
               }
               onKeyDown={(e) => {
                 if (e.key !== "Enter") return;
-                if (content.trim().length > 5) {
+                if (content.trim().length > 0) {
                   addToTasks();
                   setContent("");
                   setAddMode(false);
                 }
               }}
-
-              onBlur={()=>setAddMode(false)}
+              onBlur={() => setAddMode(false)}
             />
           </div>
         )}
-        {!addMode && (
+        {!addMode && isMouseActive && (
           <Button
             text="Add task"
             onSubmit={() => setAddMode(true)}

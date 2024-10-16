@@ -5,7 +5,7 @@ export default function TextArea({value, onChange, onBlur, onKeyDown, placeholde
     <div>
         <textarea autoFocus value={value} onChange={onChange} onBlur={onBlur} onKeyDown={onKeyDown} placeholder={placeholder}
         className="
-        p-1 rounded-md
+        p-2 rounded-md
         focus:border-rose-500
         border
         bg-black
